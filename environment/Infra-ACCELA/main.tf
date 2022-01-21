@@ -52,14 +52,14 @@ module "tableau_subnet" {
   //delegation_name           = "Microsoft.Sql/managedInstances" # Optional
   resource_group_name = "management"                                                                                                                                                                                                      # Optional Default = management
   delegation_actions  = ["Microsoft.Network/virtualNetworks/subnets/join/action", "Microsoft.Network/virtualNetworks/subnets/prepareNetworkPolicies/action", "Microsoft.Network/virtualNetworks/subnets/unprepareNetworkPolicies/action"] # Optional
-  service_endpoints   = null
+  //service_endpoints   = null
 
 }
 //VM creation with older VM module
 
-/* module "tableau_non-prod_vm_1" {
+ module "tableau_non-prod_vm_1" {
   source                      = "terraform.automation.agl.com.au/AGL/accel-windows-vm/azurerm"
-  version                     = "1.1.3"
+  version                     = "1.2.1"
   resource_group_name         = local.resource_group
   location                    = local.location
   vm_count                    = "1"
@@ -94,13 +94,14 @@ module "tableau_subnet" {
       }
     ]
   ]
-} */
+}
 
 
 // VM creation with latest VM module
 
-module "tableau_non-prod_vm_1" {
+/* module "tableau_non-prod_vm_1" {
   source                        = "terraform.automation.agl.com.au/AGL/accel-windows-vm/azurerm"
+  version                     = "1.2.1"
   resource_group_name           = local.resource_group
   location                      = local.location
   size                          = "Standard_D8_v3"
@@ -137,6 +138,45 @@ module "tableau_non-prod_vm_1" {
         source_resource_id        = ""
         write_accelerator_enabled = false
       },
+    ]
+  ]
+} */
+
+module "tableau_non-prod_vm_2" {
+  source                      = "terraform.automation.agl.com.au/AGL/accel-windows-vm/azurerm"
+  version                     = "1.2.1"
+  resource_group_name         = local.resource_group
+  location                    = local.location
+  vm_count                    = "1"
+  size                        = "Standard_D8_v3"
+  hostname_prefix             = "AXAZSNW"
+  hostname_suffix_start_range = "0001"
+  subnet_id                   = module.tableau_subnet.id
+  admin_username              = "azureadmin"
+  admin_password              = "T@blEau@2022"
+  tags                        = local.tags
+  ou_tags                     = local.ou_tags
+  dsc_FunctionKey             = var.dsc_FunctionKey
+  image_publisher             = "MicrosoftWindowsServer"
+  image_offer                 = "WindowsServer"
+  image_sku                   = "2019-Datacenter"
+  image_version               = "17763.3125.2112070401"
+  timezone                    = "AUS Eastern Standard Time"
+  os_disk_type                = "Standard_LRS"
+  os_disk_size                = "128"
+  enable_backup               = false
+  //private_ip_address_allocation = "static"
+  //private_ip_address            = "10.9.10.28"
+  data_disks = [
+    [
+      {
+        disk_size_gb              = 256
+        storage_account_type      = "Standard_LRS"
+        caching                   = "None"
+        create_option             = "Empty"
+        source_resource_id        = ""
+        write_accelerator_enabled = false
+      }
     ]
   ]
 }
