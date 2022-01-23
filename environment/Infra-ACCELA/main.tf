@@ -57,7 +57,7 @@ module "tableau_subnet" {
 }
 //VM creation with older VM module
 
- module "tableau_non-prod_vm_1" {
+module "tableau_non-prod_vm_1" {
   source                      = "terraform.automation.agl.com.au/AGL/accel-windows-vm/azurerm"
   version                     = "1.2.1"
   resource_group_name         = local.resource_group

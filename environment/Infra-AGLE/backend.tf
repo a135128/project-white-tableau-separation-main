@@ -10,7 +10,7 @@ terraform {
     hostname     = "terraform.automation.agl.com.au"
     organization = "AGL"
     workspaces {
-      name = "accel-workspace-tableau-nonproduction"
+      name = "workspace-agl-tableau-nonproduction"
     }
   }
 }
