@@ -26,18 +26,7 @@ module "agl_tableau_nsg" {
   tags                = local.tags
 }
 
-/* module "tableau_subnet" {
-  source                    = "terraform.automation.agl.com.au/AGL/agl-subnet/azurerm"
-  subnet_name               = "tableau_subnet"
-  virtual_network_name      = "hskqscla-ldykii"
-  address_prefix            = "10.232.7.0/28"
-  network_security_group_id = "/subscriptions/82a17bd1-a2f3-482b-97ca-db137fa56970/resourceGroups/workspace-agl-tableau-nonproduction/providers/Microsoft.Network/networkSecurityGroups/agl_tableau_nsg"
-  //delegation_name           = "Microsoft.Sql/managedInstances" # Optional
-  resource_group_name = "management"                                                                                                                                                                                                      # Optional Default = management
-  delegation_actions  = ["Microsoft.Network/virtualNetworks/subnets/join/action", "Microsoft.Network/virtualNetworks/subnets/prepareNetworkPolicies/action", "Microsoft.Network/virtualNetworks/subnets/unprepareNetworkPolicies/action"] # Optional
-  //service_endpoints   = null
 
-} */
 
 module "tableau_subnet" {
   source                    = "terraform.automation.agl.com.au/AGL/agl-subnet/azurerm"
