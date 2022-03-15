@@ -122,3 +122,13 @@ module "tableau_non-prod_vm_2" {
     ]
   ]
 }
+
+module "aglatableaunprdkv00" {
+  source                    = "terraform.automation.agl.com.au/AGL/agl-key-vault/azurerm"
+  name                      = "aglatableaunprdkv00"
+  location                  = local.location
+  resource_group_name       = local.resource_group
+  subnet_ids                = ["/subscriptions/82a17bd1-a2f3-482b-97ca-db137fa56970/resourceGroups/management/providers/Microsoft.Network/virtualNetworks/hskqscla-sehojj/subnets/tableau_subnet/"]
+  tags                      = local.tags
+  enable_rbac_authorization = true
+}

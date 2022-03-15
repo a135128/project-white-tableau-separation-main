@@ -120,3 +120,15 @@ module "tableau_prod_vm_2" {
     ]
   ]
 }
+
+//Keyvault for Tableau Migration Project
+
+module "aglatableauprdkv00" {
+  source                    = "terraform.automation.agl.com.au/AGL/agl-key-vault/azurerm"
+  name                      = "aglatableauprdkv00"
+  location                  = local.location
+  resource_group_name       = local.resource_group
+  subnet_ids                = ["/subscriptions/3ed2fce0-645b-40c0-aefb-d5a838a69457/resourceGroups/management/providers/Microsoft.Network/virtualNetworks/jkpocwhs-piqqez/subnets/tableau_subnet/"]
+  tags                      = local.tags
+  enable_rbac_authorization = true
+}
